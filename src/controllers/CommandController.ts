@@ -35,40 +35,40 @@ export class CommandController {
     }
   };
 
-  // static getAll = async (req: Request, res: Response) => {
-  //   try {
-  //     const listings = await CommandService.getCommandByDistributor(distributorId);
-  //     return res.status(200).send({
-  //       success: true,
-  //       message: "Listings retrieved successfully",
-  //       data: { listings },
-  //     });
-  //   } catch (error: any) {
-  //     console.error("Error getting listings: ", error);
-  //     return res.status(500).send({
-  //       success: false,
-  //       message: error.message || "Error getting listings",
-  //     });
-  //   }
-  // };
+  static getAllByDistributor = async (req: Request, res: Response) => {
+    try {
+      const commands = await CommandService.getCommandByDistributorId(req.body);
+      return res.status(200).send({
+        success: true,
+        message: "Commands retrieved successfully",
+        data: { commands },
+      });
+    } catch (error: any) {
+      console.error("Error getting listings: ", error);
+      return res.status(500).send({
+        success: false,
+        message: error.message || "Error getting listings",
+      });
+    }
+  };
 
-  // static getById = async (req: Request, res: Response) => {
-  //   try {
-  //     const { id } = req.params;
-  //     const listing = await CommandService.getListingById(id);
-  //     return res.status(200).send({
-  //       success: true,
-  //       message: "Listing retrieved successfully",
-  //       data: { listing },
-  //     });
-  //   } catch (error: any) {
-  //     console.error("Error getting listing: ", error);
-  //     return res.status(500).send({
-  //       success: false,
-  //       message: error.message || "Error getting listing",
-  //     });
-  //   }
-  // };
+  static getById = async (req: Request, res: Response) => {
+    try {
+      
+      const command = await CommandService.getCommandById(req.body);
+      return res.status(200).send({
+        success: true,
+        message: "Command retrieved successfully",
+        data: { command },
+      });
+    } catch (error: any) {
+      console.error("Error getting Command: ", error);
+      return res.status(500).send({
+        success: false,
+        message: error.message || "Error getting Command",
+      });
+    }
+  };
 
 
 

@@ -3,6 +3,11 @@ import { CreateCommandDTO } from "../../interfaces/CommandDto";
 import { Command } from "../../entities/Command.entity";
 import { CommandDetails } from "../../entities/CommandDetails.entity";
 import { ArticleService } from "../articles/ArticleService";
+import { getCommandRepository } from "../../repository/commandRepository";
+import { getCommandDetailsRepository } from "../../repository/commandDetailsRepository";
+
+const commandRepository = getCommandRepository();
+const commandDetailsRepo = getCommandDetailsRepository();
 
 export class CommandService {
 
@@ -41,4 +46,38 @@ export class CommandService {
         }
 
     }
+
+    static async getCommandById(data:{id: number,distibutorId:number}) {
+    try {
+      const command = await commandRepository.findOne({
+        where: { id:data.id,distributorid:data.distibutorId },
+        relations: ["details"],
+      });
+
+      return command;
+      
+    } catch (error) {
+      return Promise.reject(error);
+    }
+    }
+
+    static async getCommandByDistributorId(data:
+        {
+        distibutorId:number
+    }){
+        try {
+        const commands = await commandRepository.find({
+            where: { distributorid:data.distibutorId },
+            relations: ["details"],
+        });
+
+        return commands;
+        
+        } catch (error) {
+        return Promise.reject(error);
+        }
+    }
+
+
+
 }

@@ -5,12 +5,13 @@ import {
   updateListingValidator,
 } from "../middlewares/listing.middleware";
 import { CommandController } from "../controllers/CommandController";
+import { createCommandValidator } from "../middlewares/command.middleware";
 
 const commandRoute = Router();
-commandRoute.post("/create", CommandController.create);
+commandRoute.post("/create",createCommandValidator, CommandController.create);
 
-// commandRoute.get("/", CommandController.getAll);
-// commandRoute.get("/:id", CommandController.getById);
-// commandRoute.get("/delete/:id", CommandController.delete);
+commandRoute.post("/get/by-id", CommandController.getById);
+commandRoute.post("/get/by-distributor", CommandController.getAllByDistributor);
+
 
 export default commandRoute;

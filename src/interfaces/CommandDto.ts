@@ -3,7 +3,7 @@ import { ArticleDto } from "./ArticleDto";
 
 export interface CreateCommandDTO {
   // Obligatoire
-  distributor_id: number;       // référence vers Distributor
+  distributorid: number;       // référence vers Distributor
   code: string;                // code unique ou identifiant de commande
   status: string;              // status de la commande
   pharmacyId: UUID;          // référence vers Pharmacy (UUID)
