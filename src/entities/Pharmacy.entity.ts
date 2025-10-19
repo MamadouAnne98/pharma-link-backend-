@@ -5,7 +5,7 @@ import { PharmacyState } from "../enums/PharmacyState";
 import { Zone } from "./Zone.entity";
 
 
-@Entity()
+@Entity({name:"pharmacies"})
 export class Pharmacy {
   @PrimaryGeneratedColumn("uuid")
   id: string;

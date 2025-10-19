@@ -16,21 +16,25 @@ export class CommandService {
             
             
             const newCommand = await commandRepo.save(data);
+
+            console.log("New Commande ",newCommand)
             
             if(!newCommand) throw new Error("Failed To create Command");
 
-            const commandDetailsSavingResult = await  Promise.all(data.articles.map((article)=>{
-                const detail = queryRunner.manager.create(CommandDetails, {
-                command_id: newCommand.id,
-                article_id: article.article_id,
-                quantity: article.quantity,
-                batchnumber: article.batchNumber ?? null
-            });
-            return queryRunner.manager.save(detail);
-
-            }))
+            const commandDetailsSavingResult = await  Promise.all(data.articles.map(async(article)=>{
+                
+                const detail =new CommandDetails();
+                detail.command_id = newCommand.id,
+                detail.article_id = article.article_id,
+                detail.quantity= article.quantity,
+                detail.batchnumber= article.batchNumber ?? null
             
-            return {command :newCommand,commandDetails:commandDetailsSavingResult}
+                return detail;
+
+            }));
+            
+            await commandDetailsRepo.save(commandDetailsSavingResult)
+            return newCommand;
             
         } catch (error) {
             throw error;

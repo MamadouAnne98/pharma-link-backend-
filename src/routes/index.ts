@@ -12,6 +12,6 @@ router.use("/auth", authRoute);
 router.use("/articles", authorize(["admin", "article"]), articeRoute);
 router.use("/users", authorize(["admin", "user"]), userRoute);
 router.use("/listings", authorize(["admin", "article"]), listingRoute);
-router.use("/commands", authorize(["admin", "article"]), commandRoute);
+router.use("/commands", commandRoute);
 
 export default router;

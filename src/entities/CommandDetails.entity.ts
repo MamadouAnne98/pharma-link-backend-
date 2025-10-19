@@ -3,14 +3,12 @@ import { Command } from "./Command.entity";
 import { Article } from "./Article.entity";
 
 
-@Entity()
+@Entity({name:"command_details"})
 @Check(`"quantity" >= 0`)
 export class CommandDetails {
   @PrimaryGeneratedColumn("increment")
   id: number;
 
-  @Column()
-  commandid: number;
 
   @Column({ nullable: true })
   batchnumber: string;
@@ -21,17 +19,14 @@ export class CommandDetails {
   @Column()
   article_id: string;
 
-  @Column()
-  command_id: number;
+  @Column({ name: 'command_id', type: 'bigint' })
+  command_id: number; // ⚠️ correspond exactement au nom de la colonne dans la DB
 
   // Relations
   @ManyToOne(() => Command, command => command.details, { onDelete: "CASCADE" })
-  @JoinColumn({ name: "commandid" })
+  @JoinColumn({ name: "command_id" })
   command: Command;
 
-  @ManyToOne(() => Command)
-  @JoinColumn({ name: "command_id" })
-  commandRef: Command;
 
   @ManyToOne(() => Article)
   @JoinColumn({ name: "article_id" })

@@ -16,18 +16,22 @@ export class CommandController {
     await queryRunner.connect();
     await queryRunner.startTransaction();
     try {
-      const listing = await CommandService.createCommand(queryRunner,req.body);
+      const commandes = await CommandService.createCommand(queryRunner,req.body);
+      await queryRunner.commitTransaction()
       return res.status(200).send({
         success: true,
         message: "Command  created successfully",
-        data: { listing },
+        data: { commandes },
       });
     } catch (error: any) {
       console.error("CreateCommandError", error);
+      queryRunner.rollbackTransaction();
       return res.status(500).send({
         success: false,
         message: error.message || "Error creating listing",
       });
+    }finally{
+      await queryRunner.release();
     }
   };
 

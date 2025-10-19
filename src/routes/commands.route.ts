@@ -7,7 +7,7 @@ import {
 import { CommandController } from "../controllers/CommandController";
 
 const commandRoute = Router();
-commandRoute.post("/create", createListingValidator, CommandController.create);
+commandRoute.post("/create", CommandController.create);
 
 // commandRoute.get("/", CommandController.getAll);
 // commandRoute.get("/:id", CommandController.getById);

@@ -4,13 +4,11 @@ import { CommandDetails } from "./CommandDetails.entity";
 import { Pharmacy } from "./Pharmacy.entity";
 
 
-@Entity()
+@Entity({name:"command"})
 export class Command {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
-  distributorid: number;
 
   @Column()
   code: string;
@@ -33,8 +31,8 @@ export class Command {
   @Column()
   pharmacyId: string;
 
-  @Column()
-  distributor_id: number;
+  @Column({name:"distibutorid"})
+  distributorid: number;
 
   // Relations
   @ManyToOne(() => Distributor, distributor => distributor.commands, { onDelete: "CASCADE" })
